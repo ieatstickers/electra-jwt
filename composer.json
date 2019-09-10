@@ -1,0 +1,30 @@
+{
+	"name": "electra/jwt",
+	"minimum-stability": "dev",
+	"repositories": [
+		{
+			"type": "vcs",
+			"url":  "https://github.com/ieatstickers/electra-utility.git"
+		},
+		{
+			"type": "vcs",
+			"url":  "https://github.com/ieatstickers/electra-core.git"
+		}
+	],
+	"require": {
+		"electra/utility": "dev-master",
+		"electra/core": "dev-master",
+		"ext-json": "*"
+	},
+	"require-dev" : {},
+	"authors": [
+		{
+			"name": "Mike Burke"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Electra\\Jwt\\": "src"
+		}
+	}
+}
