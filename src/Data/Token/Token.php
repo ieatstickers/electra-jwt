@@ -2,6 +2,8 @@
 
 namespace Electra\Jwt\Data\Token;
 
+use Electra\Core\Exception\ElectraException;
+
 class Token
 {
   /** @var array */
@@ -23,5 +25,21 @@ class Token
     }
 
     return null;
+  }
+
+  /**
+   * @param string $claim
+   * @return mixed
+   * @throws ElectraException
+   */
+  public function getRequiredClaim(string $claim)
+  {
+    if (isset($this->payload[$claim]))
+    {
+      return $this->payload[$claim];
+    }
+
+    throw (new ElectraException('Required claim not present in JWT token'))
+      ->addMetaData('claim', $claim);
   }
 }
