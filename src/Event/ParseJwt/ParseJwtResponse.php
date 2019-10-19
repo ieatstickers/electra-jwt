@@ -3,15 +3,12 @@
 namespace Electra\Jwt\Event\ParseJwt;
 
 use Electra\Core\Event\AbstractResponse;
+use Electra\Jwt\Data\Token\Token;
 
 class ParseJwtResponse extends AbstractResponse
 {
-  /** @var string */
-  public $header;
-  /** @var string */
-  public $payload;
-  /** @var string */
-  public $signature;
+  /** @var Token */
+  public $token;
   /** @var bool */
   public $verified;
 

@@ -3,6 +3,7 @@
 namespace Electra\Jwt\Data\Token;
 
 use Electra\Core\Exception\ElectraException;
+use Electra\Utility\Objects;
 
 class Token
 {
@@ -12,6 +13,8 @@ class Token
   public $payload = [];
   /** @var string */
   public $signature;
+  /** @var bool */
+  public $verified;
 
   /**
    * @param string $claim
@@ -41,5 +44,15 @@ class Token
 
     throw (new ElectraException('Required claim not present in JWT token'))
       ->addMetaData('claim', $claim);
+  }
+
+  /**
+   * @param array | object $data
+   * @return Token
+   * @throws \Exception
+   */
+  public static function create($data = [])
+  {
+    return Objects::hydrate(new self(), (object)$data);
   }
 }
