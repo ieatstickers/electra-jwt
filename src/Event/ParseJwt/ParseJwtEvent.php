@@ -10,11 +10,11 @@ class ParseJwtEvent extends AbstractEvent
   /** @return string */
   public function getPayloadClass(): string
   {
-    return ElectraParseJwtPayload::class;
+    return ParseJwtPayload::class;
   }
 
   /**
-   * @param ElectraParseJwtPayload $payload
+   * @param ParseJwtPayload $payload
    * @return ParseJwtResponse
    */
   protected function process($payload): ParseJwtResponse

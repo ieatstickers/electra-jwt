@@ -4,7 +4,7 @@ namespace Electra\Jwt\Event\GenerateJwt;
 
 use Electra\Core\Event\AbstractPayload;
 
-class ElectraGenerateJwtPayload extends AbstractPayload
+class GenerateJwtPayload extends AbstractPayload
 {
   /** @var array */
   public $jwtHeader = [ 'alg' => 'HS256', 'typ' => 'jwt' ];
@@ -13,8 +13,8 @@ class ElectraGenerateJwtPayload extends AbstractPayload
   /** @var string */
   public $secret;
 
-  /** @return ElectraGenerateJwtPayload */
-  public static function create(): ElectraGenerateJwtPayload
+  /** @return GenerateJwtPayload */
+  public static function create(): GenerateJwtPayload
   {
     return new self();
   }

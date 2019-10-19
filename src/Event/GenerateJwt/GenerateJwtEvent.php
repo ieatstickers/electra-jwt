@@ -7,20 +7,20 @@ use Electra\Error\Exception;
 use Electra\Jwt\Api\JwtApi;
 use Electra\Utility\Arrays;
 
-class ElectraGenerateJwtEvent extends AbstractEvent
+class GenerateJwtEvent extends AbstractEvent
 {
   /** @return string */
   public function getPayloadClass(): string
   {
-    return ElectraGenerateJwtPayload::class;
+    return GenerateJwtPayload::class;
   }
 
   /**
-   * @param ElectraGenerateJwtPayload $payload
-   * @return ElectraGenerateJwtResponse
+   * @param GenerateJwtPayload $payload
+   * @return GenerateJwtResponse
    * @throws Exception
    */
-  protected function process($payload): ElectraGenerateJwtResponse
+  protected function process($payload): GenerateJwtResponse
   {
     $header = $payload->jwtHeader;
     $alg = Arrays::getByKey('alg', $header);
@@ -36,7 +36,7 @@ class ElectraGenerateJwtEvent extends AbstractEvent
       throw new Exception("Cannot generate JWT. Unrecognised header value 'typ': $typ");
     }
 
-    $response = ElectraGenerateJwtResponse::create();
+    $response = GenerateJwtResponse::create();
     $response->jwt = JwtApi::generateJwt(
       $payload->jwtHeader,
       $payload->jwtPayload,

@@ -4,7 +4,7 @@ namespace Electra\Jwt\Event\ParseJwt;
 
 use Electra\Core\Event\AbstractPayload;
 
-class ElectraParseJwtPayload extends AbstractPayload
+class ParseJwtPayload extends AbstractPayload
 {
   /** @var string */
   public $jwt;
@@ -29,8 +29,8 @@ class ElectraParseJwtPayload extends AbstractPayload
     ];
   }
 
-  /** @return ElectraParseJwtPayload */
-  public static function create(): ElectraParseJwtPayload
+  /** @return ParseJwtPayload */
+  public static function create(): ParseJwtPayload
   {
     return new self();
   }
