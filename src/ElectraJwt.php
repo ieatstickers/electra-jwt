@@ -29,7 +29,7 @@ class ElectraJwt
     return self::$secret;
   }
 
-  /** @param Token $secret */
+  /** @param string $secret */
   public static function setSecret($secret)
   {
     self::$secret = $secret;
