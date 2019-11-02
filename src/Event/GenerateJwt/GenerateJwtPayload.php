@@ -22,7 +22,7 @@ class GenerateJwtPayload extends AbstractPayload
   /** @return array */
   protected function getRequiredProperties(): array
   {
-    return ['jwtHeader', 'jwtPayload', 'secret'];
+    return ['jwtHeader', 'jwtPayload'];
   }
 
   /** @return array */

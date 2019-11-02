@@ -3,8 +3,9 @@
 namespace Electra\Jwt\Event\GenerateJwt;
 
 use Electra\Core\Event\AbstractEvent;
-use Electra\Error\Exception;
+use Electra\Core\Exception\ElectraException;
 use Electra\Jwt\Api\JwtApi;
+use Electra\Jwt\ElectraJwt;
 use Electra\Utility\Arrays;
 
 class GenerateJwtEvent extends AbstractEvent
@@ -18,7 +19,7 @@ class GenerateJwtEvent extends AbstractEvent
   /**
    * @param GenerateJwtPayload $payload
    * @return GenerateJwtResponse
-   * @throws Exception
+   * @throws ElectraException
    */
   protected function process($payload): GenerateJwtResponse
   {
@@ -28,19 +29,21 @@ class GenerateJwtEvent extends AbstractEvent
 
     if ($alg !== 'HS256')
     {
-      throw new Exception("Cannot generate JWT. Unrecognised header value 'alg': $alg");
+      throw (new ElectraException("Cannot generate JWT. Unrecognised header value 'alg': $alg"))
+        ->addMetaData('alg', $alg);
     }
 
     if ($typ !== 'jwt')
     {
-      throw new Exception("Cannot generate JWT. Unrecognised header value 'typ': $typ");
+      throw (new ElectraException("Cannot generate JWT. Unrecognised header value 'typ': $typ"))
+        ->addMetaData('typ', $typ);
     }
 
     $response = GenerateJwtResponse::create();
     $response->jwt = JwtApi::generateJwt(
       $payload->jwtHeader,
       $payload->jwtPayload,
-      $payload->secret
+      $payload->secret ?: ElectraJwt::getSecret()
     );
 
     return $response;
