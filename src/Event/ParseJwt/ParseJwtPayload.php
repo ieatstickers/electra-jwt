@@ -15,8 +15,7 @@ class ParseJwtPayload extends AbstractPayload
   public function getRequiredProperties(): array
   {
     return [
-      'jwt',
-      'secret'
+      'jwt'
     ];
   }
 
