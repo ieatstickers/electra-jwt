@@ -23,8 +23,12 @@ class ParseJwtEvent extends AbstractEvent
     $token = JwtApi::parseJwt($payload->jwt);
 
     $response = ParseJwtResponse::create();
-    $token->verified = JwtApi::verifySignature($token, $payload->secret ?: ElectraJwt::getSecret());
-    $response->token = $token;
+
+    if ($token)
+    {
+      $token->verified = JwtApi::verifySignature($token, $payload->secret ?: ElectraJwt::getSecret());
+      $response->token = $token;
+    }
 
     return $response;
   }

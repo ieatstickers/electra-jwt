@@ -31,13 +31,32 @@ class JwtApi
    * @param string $jwt
    * @return Token
    */
-  public static function parseJwt(string $jwt): Token
+  public static function parseJwt(string $jwt): ?Token
   {
     [$encodedHeader, $encodedPayload, $encodedSignature] = explode('.', $jwt);
 
-    $decodedHeader = json_decode(self::base64UrlDecode($encodedHeader), true);
-    $decodedPayload = json_decode(self::base64UrlDecode($encodedPayload), true);
-    $decodedSignature = self::base64UrlDecode($encodedSignature);
+    if (!$encodedHeader || !$encodedPayload || !$encodedSignature)
+    {
+      return null;
+    }
+
+    $decodedHeader = null;
+    $decodedPayload = null;
+    $decodedSignature = null;
+
+    try
+    {
+      $decodedHeader = json_decode(self::base64UrlDecode($encodedHeader), true);
+      $decodedPayload = json_decode(self::base64UrlDecode($encodedPayload), true);
+      $decodedSignature = self::base64UrlDecode($encodedSignature);
+    }
+    catch (\Exception $e)
+    {}
+
+    if (!$decodedHeader || !$decodedPayload || !$decodedSignature)
+    {
+      return null;
+    }
 
     $token = new Token();
     $token->header = $decodedHeader;

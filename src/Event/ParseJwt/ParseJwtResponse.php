@@ -9,8 +9,6 @@ class ParseJwtResponse extends AbstractResponse
 {
   /** @var Token */
   public $token;
-  /** @var bool */
-  public $verified;
 
   /** @return ParseJwtResponse */
   public static function create(): ParseJwtResponse
