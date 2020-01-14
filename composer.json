@@ -9,6 +9,22 @@
 		{
 			"type": "vcs",
 			"url":  "https://github.com/ieatstickers/electra-core.git"
+		},
+		{
+			"type": "vcs",
+			"url":  "https://github.com/ieatstickers/electra-acl.git"
+		},
+		{
+			"type": "vcs",
+			"url":  "https://github.com/ieatstickers/electra-config.git"
+		},
+		{
+			"type": "vcs",
+			"url":  "https://github.com/ieatstickers/electra-dal.git"
+		},
+		{
+			"type": "vcs",
+			"url":  "https://github.com/ieatstickers/electra-migrate.git"
 		}
 	],
 	"require": {

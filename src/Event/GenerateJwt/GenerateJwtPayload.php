@@ -26,7 +26,7 @@ class GenerateJwtPayload extends AbstractPayload
   }
 
   /** @return array */
-  protected function getPropertyTypes(): array
+  public function getPropertyTypes(): array
   {
     return [ 'jwtHeader' => 'array', 'jwtPayload' => 'array', 'secret' => 'string' ];
   }
