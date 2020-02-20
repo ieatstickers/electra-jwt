@@ -4,6 +4,11 @@ namespace Electra\Jwt\Event\GenerateJwt;
 
 use Electra\Core\Event\AbstractPayload;
 
+/**
+ * Class GenerateJwtPayload
+ * @package Electra\Jwt\Event\GenerateJwt
+ * @method static create($data = [])
+ */
 class GenerateJwtPayload extends AbstractPayload
 {
   /** @var array */
@@ -12,12 +17,6 @@ class GenerateJwtPayload extends AbstractPayload
   public $jwtPayload = [];
   /** @var string */
   public $secret;
-
-  /** @return GenerateJwtPayload */
-  public static function create(): GenerateJwtPayload
-  {
-    return new self();
-  }
 
   /** @return array */
   protected function getRequiredProperties(): array
