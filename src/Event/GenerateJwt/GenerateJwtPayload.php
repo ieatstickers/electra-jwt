@@ -7,7 +7,7 @@ use Electra\Core\Event\AbstractPayload;
 /**
  * Class GenerateJwtPayload
  * @package Electra\Jwt\Event\GenerateJwt
- * @method static create($data = [])
+ * @method $this static create($data = [])
  */
 class GenerateJwtPayload extends AbstractPayload
 {
