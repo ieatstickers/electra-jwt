@@ -4,7 +4,7 @@ namespace Electra\Jwt\Event\ParseJwt;
 
 use Electra\Core\Event\AbstractEvent;
 use Electra\Jwt\Api\JwtApi;
-use Electra\Jwt\ElectraJwt;
+use Electra\Jwt\Context\ElectraJwtContext;
 
 class ParseJwtEvent extends AbstractEvent
 {
@@ -17,6 +17,7 @@ class ParseJwtEvent extends AbstractEvent
   /**
    * @param ParseJwtPayload $payload
    * @return ParseJwtResponse
+   * @throws \Exception
    */
   protected function process($payload): ParseJwtResponse
   {
@@ -26,7 +27,7 @@ class ParseJwtEvent extends AbstractEvent
 
     if ($token)
     {
-      $token->verified = JwtApi::verifySignature($token, $payload->secret ?: ElectraJwt::getSecret());
+      $token->verified = JwtApi::verifySignature($token, $payload->secret ?: ElectraJwtContext::getSecret());
       $response->token = $token;
     }
 
