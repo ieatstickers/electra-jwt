@@ -1,10 +1,10 @@
 <?php
 
-namespace Electra\Jwt;
+namespace Electra\Jwt\Context;
 
 use Electra\Jwt\Data\Token\Token;
 
-class ElectraJwt
+class ElectraJwtContext
 {
   /** @var Token | null */
   protected static $token;
@@ -18,7 +18,7 @@ class ElectraJwt
   }
 
   /** @param Token $token */
-  public static function setToken($token)
+  public static function setToken(Token $token)
   {
     self::$token = $token;
   }
