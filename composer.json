@@ -25,11 +25,16 @@
 		{
 			"type": "vcs",
 			"url":  "https://github.com/ieatstickers/electra-migrate.git"
+		},
+		{
+			"type": "vcs",
+			"url":  "https://github.com/ieatstickers/electra-web.git"
 		}
 	],
 	"require": {
 		"electra/utility": "dev-master",
 		"electra/core": "dev-master",
+		"electra/web": "dev-master",
 		"ext-json": "*"
 	},
 	"require-dev" : {},
