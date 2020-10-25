@@ -6,10 +6,10 @@ use Electra\Core\Context\ContextAware;
 use Electra\Core\Event\EventInterface;
 use Electra\Core\Exception\ElectraException;
 use Electra\Core\Exception\ElectraUnauthorizedException;
-use Electra\Jwt\Context\ElectraJwtContext;
 use Electra\Jwt\Context\ElectraJwtContextInterface;
 use Electra\Jwt\Event\ElectraJwtEvents;
 use Electra\Jwt\Event\ParseJwt\ParseJwtPayload;
+use Electra\Web\Context\WebContextInterface;
 use Electra\Web\Endpoint\EndpointInterface;
 use Electra\Web\Middleware\MiddlewareInterface;
 
@@ -17,7 +17,7 @@ use Electra\Web\Middleware\MiddlewareInterface;
  * Class JwtMiddleware
  *
  * @package Electra\Jwt\Middleware
- * @method ElectraJwtContextInterface getContext()
+ * @method ElectraJwtContextInterface | WebContextInterface getContext()
  */
 class JwtMiddleware implements MiddlewareInterface
 {

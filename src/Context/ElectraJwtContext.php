@@ -3,12 +3,9 @@
 namespace Electra\Jwt\Context;
 
 use Electra\Jwt\Data\Jwt\Jwt;
-use Electra\Web\Context\WebContext;
 
 trait ElectraJwtContext
 {
-  use WebContext;
-
   /** @var Jwt | null */
   protected $jwt;
   /** @var string */

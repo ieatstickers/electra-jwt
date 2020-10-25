@@ -3,9 +3,8 @@
 namespace Electra\Jwt\Context;
 
 use Electra\Jwt\Data\Jwt\Jwt;
-use Electra\Web\Context\WebContextInterface;
 
-interface ElectraJwtContextInterface extends WebContextInterface
+interface ElectraJwtContextInterface
 {
   /** @return Jwt | null */
   public function getJwt(): ?Jwt;
