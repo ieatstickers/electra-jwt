@@ -3,7 +3,7 @@
 namespace Electra\Jwt\Api;
 
 
-use Electra\Jwt\Data\Token\Token;
+use Electra\Jwt\Data\Jwt\Jwt;
 
 class JwtApi
 {
@@ -29,9 +29,10 @@ class JwtApi
 
   /**
    * @param string $jwt
-   * @return Token
+   *
+   * @return Jwt
    */
-  public static function parseJwt(string $jwt): ?Token
+  public static function parseJwt(string $jwt): ?Jwt
   {
     [$encodedHeader, $encodedPayload, $encodedSignature] = explode('.', $jwt);
 
@@ -58,12 +59,12 @@ class JwtApi
       return null;
     }
 
-    $token = new Token();
-    $token->header = $decodedHeader;
-    $token->payload = $decodedPayload;
-    $token->signature = $decodedSignature;
+    $jwtEntity = new Jwt();
+    $jwtEntity->header = $decodedHeader;
+    $jwtEntity->payload = $decodedPayload;
+    $jwtEntity->signature = $decodedSignature;
 
-    return $token;
+    return $jwtEntity;
   }
 
   /**
@@ -108,16 +109,17 @@ class JwtApi
   }
 
   /**
-   * @param Token $token
+   * @param Jwt    $jwt
    * @param string $secret
+   *
    * @return bool
    */
-  public static function verifySignature(Token $token, string $secret): bool
+  public static function verifySignature(Jwt $jwt, string $secret): bool
   {
-    $encodedHeader = self::base64UrlEncode(json_encode($token->header));
-    $encodedPayload = self::base64UrlEncode(json_encode($token->payload));
+    $encodedHeader = self::base64UrlEncode(json_encode($jwt->header));
+    $encodedPayload = self::base64UrlEncode(json_encode($jwt->payload));
     $signature = self::sign($encodedHeader, $encodedPayload, $secret);
 
-    return ($signature == $token->signature);
+    return ($signature == $jwt->signature);
   }
 }

@@ -3,7 +3,7 @@
 namespace Electra\Jwt\Event\ParseJwt;
 
 use Electra\Core\Event\AbstractResponse;
-use Electra\Jwt\Data\Token\Token;
+use Electra\Jwt\Data\Jwt\Jwt;
 
 /**
  * Class ParseJwtResponse
@@ -12,6 +12,6 @@ use Electra\Jwt\Data\Token\Token;
  */
 class ParseJwtResponse extends AbstractResponse
 {
-  /** @var Token */
+  /** @var Jwt */
   public $token;
 }

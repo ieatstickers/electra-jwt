@@ -1,11 +1,11 @@
 <?php
 
-namespace Electra\Jwt\Data\Token;
+namespace Electra\Jwt\Data\Jwt;
 
 use Electra\Core\Exception\ElectraException;
 use Electra\Utility\Objects;
 
-class Token
+class Jwt
 {
   /** @var array */
   public $header = [ 'alg', 'HS256', 'typ' => 'jwt' ];
@@ -48,7 +48,8 @@ class Token
 
   /**
    * @param array | object $data
-   * @return Token
+   *
+   * @return Jwt
    * @throws \Exception
    */
   public static function create($data = [])

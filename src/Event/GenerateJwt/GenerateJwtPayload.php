@@ -3,6 +3,7 @@
 namespace Electra\Jwt\Event\GenerateJwt;
 
 use Electra\Core\Event\AbstractPayload;
+use Electra\Core\Event\Type\Type;
 
 /**
  * Class GenerateJwtPayload
@@ -27,7 +28,7 @@ class GenerateJwtPayload extends AbstractPayload
   /** @return array */
   public function getPropertyTypes(): array
   {
-    return [ 'jwtHeader' => 'array', 'jwtPayload' => 'array', 'secret' => 'string' ];
+    return [ 'jwtHeader' => Type::array(), 'jwtPayload' => Type::array(), 'secret' => Type::string() ];
   }
 
 }

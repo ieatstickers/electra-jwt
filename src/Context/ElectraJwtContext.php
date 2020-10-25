@@ -2,37 +2,52 @@
 
 namespace Electra\Jwt\Context;
 
-use Electra\Jwt\Data\Token\Token;
+use Electra\Jwt\Data\Jwt\Jwt;
+use Electra\Web\Context\WebContext;
 
-class ElectraJwtContext
+trait ElectraJwtContext
 {
-  /** @var Token | null */
-  protected static $token;
-  /** @var string */
-  protected static $secret;
+  use WebContext;
 
-  /** @return Token | null */
-  public static function getToken(): ?Token
+  /** @var Jwt | null */
+  protected $jwt;
+  /** @var string */
+  protected $jwtSecret;
+
+  /** @return Jwt | null */
+  public function getJwt(): ?Jwt
   {
-    return self::$token;
+    return $this->jwt;
   }
 
-  /** @param Token $token */
-  public static function setToken(Token $token)
+  /**
+   * @param Jwt $jwt
+   *
+   * @return $this
+   */
+  public function setJwt(Jwt $jwt)
   {
-    self::$token = $token;
+    $this->jwt = $jwt;
+
+    return $this;
   }
 
   /** @return string */
-  public static function getSecret(): string
+  public function getJwtSecret(): string
   {
-    return self::$secret;
+    return $this->jwtSecret;
   }
 
-  /** @param string $secret */
-  public static function setSecret($secret)
+  /**
+   * @param string $jwtSecret
+   *
+   * @return $this
+   */
+  public function setJwtSecret(string $jwtSecret)
   {
-    self::$secret = $secret;
+    $this->jwtSecret = $jwtSecret;
+
+    return $this;
   }
 
 }

@@ -5,9 +5,14 @@ namespace Electra\Jwt\Event\GenerateJwt;
 use Electra\Core\Event\AbstractEvent;
 use Electra\Core\Exception\ElectraException;
 use Electra\Jwt\Api\JwtApi;
-use Electra\Jwt\Context\ElectraJwtContext;
+use Electra\Jwt\Context\ElectraJwtContextInterface;
 use Electra\Utility\Arrays;
 
+/**
+ * Class GenerateJwtEvent
+ *
+ * @method ElectraJwtContextInterface getContext()
+ */
 class GenerateJwtEvent extends AbstractEvent
 {
   /** @return string */
@@ -44,7 +49,7 @@ class GenerateJwtEvent extends AbstractEvent
     $response->jwt = JwtApi::generateJwt(
       $payload->jwtHeader,
       $payload->jwtPayload,
-      $payload->secret ?: ElectraJwtContext::getSecret()
+      $payload->secret ?: $this->getContext()->getJwtSecret()
     );
 
     return $response;

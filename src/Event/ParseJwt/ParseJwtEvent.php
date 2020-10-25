@@ -2,10 +2,17 @@
 
 namespace Electra\Jwt\Event\ParseJwt;
 
+use Electra\Core\Context\ContextInterface;
 use Electra\Core\Event\AbstractEvent;
 use Electra\Jwt\Api\JwtApi;
 use Electra\Jwt\Context\ElectraJwtContext;
+use Electra\Jwt\Context\ElectraJwtContextInterface;
 
+/**
+ * Class ParseJwtEvent
+ *
+ * @method ElectraJwtContextInterface getContext()
+ */
 class ParseJwtEvent extends AbstractEvent
 {
   /** @return string */
@@ -27,7 +34,7 @@ class ParseJwtEvent extends AbstractEvent
 
     if ($token)
     {
-      $token->verified = JwtApi::verifySignature($token, $payload->secret ?: ElectraJwtContext::getSecret());
+      $token->verified = JwtApi::verifySignature($token, $payload->secret ?: $this->getContext()->getJwtSecret());
       $response->token = $token;
     }
 
