@@ -24,12 +24,12 @@ class JwtMiddleware implements MiddlewareInterface
   use ContextAware;
 
   /**
-   * @param EventInterface $event
+   * @param EventInterface | callable $event
    *
    * @return bool
    * @throws ElectraException
    */
-  public function run(EventInterface $event): bool
+  public function run($event): bool
   {
     $ctx = $this->getContext();
     $request = $ctx->request();
