@@ -3,6 +3,7 @@
 namespace Electra\Jwt\Event\ParseJwt;
 
 use Electra\Core\Event\AbstractPayload;
+use Electra\Core\Event\Type\Type;
 
 /**
  * Class ParseJwtPayload
@@ -28,8 +29,8 @@ class ParseJwtPayload extends AbstractPayload
   public function getPropertyTypes(): array
   {
     return [
-      'jwt' => 'string',
-      'secret' => 'string'
+      'jwt' => Type::string(),
+      'secret' => Type::string()
     ];
   }
 }
