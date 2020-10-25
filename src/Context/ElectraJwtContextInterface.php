@@ -20,9 +20,9 @@ interface ElectraJwtContextInterface
   public function getJwtSecret(): string;
 
   /**
-   * @param $secret
+   * @param string $secret
    * @return $this
    */
-  public function setJwtSecret($secret);
+  public function setJwtSecret(string $secret);
 
 }
