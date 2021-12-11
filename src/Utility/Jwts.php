@@ -13,9 +13,9 @@ class Jwts
    * @return string
    */
   public static function generateJwt(
-    array $header,
     array $payload,
-    string $secret
+    string $secret,
+    array $header = [ 'alg' => 'HS256', 'typ' => 'jwt' ]
   ): string
   {
     $encodedHeader = self::base64UrlEncode(json_encode($header));
