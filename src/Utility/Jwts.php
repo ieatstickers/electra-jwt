@@ -27,11 +27,12 @@ class Jwts
   }
 
   /**
-   * @param string $jwt
+   * @param string      $jwt
+   * @param string|null $verificationSecret
    *
-   * @return Jwt
+   * @return Jwt|null
    */
-  public static function parseJwt(string $jwt, ?string $verificationSecret): ?Jwt
+  public static function parseJwt(string $jwt, ?string $verificationSecret = null): ?Jwt
   {
     [$encodedHeader, $encodedPayload, $encodedSignature] = explode('.', $jwt);
 
