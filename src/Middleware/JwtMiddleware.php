@@ -4,13 +4,9 @@ namespace Electra\Jwt\Middleware;
 
 use Electra\Core\Context\ContextAware;
 use Electra\Core\Event\EventInterface;
-use Electra\Core\Exception\ElectraException;
-use Electra\Core\Exception\ElectraUnauthorizedException;
 use Electra\Jwt\Context\ElectraJwtContextInterface;
-use Electra\Jwt\Event\ElectraJwtEvents;
-use Electra\Jwt\Event\ParseJwt\ParseJwtPayload;
+use Electra\Jwt\Utility\Jwts;
 use Electra\Web\Context\WebContextInterface;
-use Electra\Web\Endpoint\EndpointInterface;
 use Electra\Web\Middleware\MiddlewareInterface;
 
 /**
@@ -24,10 +20,10 @@ class JwtMiddleware implements MiddlewareInterface
   use ContextAware;
 
   /**
-   * @param EventInterface | callable $event
+   * @param callable|EventInterface $event
    *
    * @return bool
-   * @throws ElectraException
+   * @throws \Exception
    */
   public function run($event): bool
   {
@@ -40,27 +36,12 @@ class JwtMiddleware implements MiddlewareInterface
       [$schema, $jwt] = explode(' ', $authHeaderValue);
 
       // Parse token
-      $parseJwtPayload = ParseJwtPayload::create();
-      $parseJwtPayload->jwt = $jwt;
-      $parseJwtPayload->secret = $ctx->getJwtSecret();
-      $parseJwtResponse = ElectraJwtEvents::parseJwt($parseJwtPayload);
+      $jwtToken = Jwts::parseJwt($jwt, $ctx->getJwtSecret());
 
-      if ($parseJwtResponse->token && $parseJwtResponse->token->verified)
+      if ($jwtToken && $jwtToken->verified)
       {
-        $ctx->setJwt($parseJwtResponse->token);
+        $ctx->setJwt($jwtToken);
       }
-    }
-
-    // If endpoint is authenticated & no token is set
-    if (
-      $event instanceof EndpointInterface
-      && $event->requiresAuth()
-      && !$ctx->getJwt()
-    )
-    {
-      throw (new ElectraUnauthorizedException('Unauthorized'))
-        ->addMetaData('endpoint', get_class($event))
-        ->addMetaData('token', $ctx->getJwt());
     }
 
     return true;

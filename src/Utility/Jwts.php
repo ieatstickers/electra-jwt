@@ -1,11 +1,10 @@
 <?php
 
-namespace Electra\Jwt\Api;
-
+namespace Electra\Jwt\Utility;
 
 use Electra\Jwt\Data\Jwt\Jwt;
 
-class JwtApi
+class Jwts
 {
   /**
    * @param array $payload
@@ -32,7 +31,7 @@ class JwtApi
    *
    * @return Jwt
    */
-  public static function parseJwt(string $jwt): ?Jwt
+  public static function parseJwt(string $jwt, ?string $verificationSecret): ?Jwt
   {
     [$encodedHeader, $encodedPayload, $encodedSignature] = explode('.', $jwt);
 
@@ -64,33 +63,12 @@ class JwtApi
     $jwtEntity->payload = $decodedPayload;
     $jwtEntity->signature = $decodedSignature;
 
-    return $jwtEntity;
-  }
-
-  /**
-   * @param string $input
-   * @return string
-   */
-  public static function base64UrlEncode(string $input): string
-  {
-    return str_replace('=', '', strtr(base64_encode($input), '+/', '-_'));
-  }
-
-  /**
-   * @param string $input
-   * @return string
-   */
-  public static function base64UrlDecode(string $input): string
-  {
-    $remainder = strlen($input) % 4;
-
-    if ($remainder)
+    if ($verificationSecret)
     {
-      $padlen = 4 - $remainder;
-      $input .= str_repeat('=', $padlen);
+      $jwtEntity->verified = Jwts::verifySignature($jwtEntity, $verificationSecret);
     }
 
-    return base64_decode(strtr($input, '-_', '+/'));
+    return $jwtEntity;
   }
 
   /**
@@ -121,5 +99,31 @@ class JwtApi
     $signature = self::sign($encodedHeader, $encodedPayload, $secret);
 
     return ($signature == $jwt->signature);
+  }
+
+  /**
+   * @param string $input
+   * @return string
+   */
+  private static function base64UrlEncode(string $input): string
+  {
+    return str_replace('=', '', strtr(base64_encode($input), '+/', '-_'));
+  }
+
+  /**
+   * @param string $input
+   * @return string
+   */
+  private static function base64UrlDecode(string $input): string
+  {
+    $remainder = strlen($input) % 4;
+
+    if ($remainder)
+    {
+      $padlen = 4 - $remainder;
+      $input .= str_repeat('=', $padlen);
+    }
+
+    return base64_decode(strtr($input, '-_', '+/'));
   }
 }
