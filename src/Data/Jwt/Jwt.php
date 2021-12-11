@@ -8,7 +8,7 @@ use Electra\Utility\Objects;
 class Jwt
 {
   /** @var array */
-  public $header = [ 'alg', 'HS256', 'typ' => 'jwt' ];
+  public $header = [ 'alg' => 'HS256', 'typ' => 'jwt' ];
   /** @var array */
   public $payload = [];
   /** @var string */
