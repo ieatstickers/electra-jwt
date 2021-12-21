@@ -30,15 +30,25 @@ class JwtMiddleware implements MiddlewareInterface
     $ctx = $this->getContext();
     $request = $ctx->request();
 
+    $jwt = null;
+
     // If auth header is set
-    if ($authHeaderValue = $request->header('Authorization'))
+    if($authHeaderValue = $request->header('Authorization'))
     {
       [$schema, $jwt] = explode(' ', $authHeaderValue);
+    }
+    // Else if the jwt cookie is set
+    else if($request->hasCookie('jwt'))
+    {
+      $jwt = $request->cookie('jwt');
+    }
 
+    if($jwt)
+    {
       // Parse token
       $jwtToken = Jwts::parseJwt($jwt, $ctx->getJwtSecret());
 
-      if ($jwtToken && $jwtToken->verified)
+      if($jwtToken && $jwtToken->verified)
       {
         $ctx->setJwt($jwtToken);
       }
