@@ -32,9 +32,9 @@
 		}
 	],
 	"require": {
-		"electra/utility": "dev-master",
-		"electra/core": "dev-master",
-		"electra/web": "dev-master",
+		"electra/utility": "dev-php8.1-upgrade",
+		"electra/core": "dev-php8.1-upgrade",
+		"electra/web": "dev-php8.1-upgrade",
 		"ext-json": "*"
 	},
 	"require-dev" : {},
