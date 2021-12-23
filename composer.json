@@ -1,7 +1,8 @@
 {
 	"name": "electra/jwt",
 	"minimum-stability": "dev",
-	"repositories": [
+  "prefer-stable": true,
+  "repositories": [
 		{
 			"type": "vcs",
 			"url":  "https://github.com/ieatstickers/electra-utility.git"
